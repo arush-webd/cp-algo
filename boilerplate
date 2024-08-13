@@ -9,22 +9,21 @@ using namespace std;
 #define vc vector<char>
 #define mll map<long long, long long>
 #define pb push_back
-#define fs(i, a, b) for (size_t i = a; i < b; i++)
+#define fs(i, a, b) for (ll i = a; i < b; i++)
 #define print(v) for (auto x : v) cout << x << " "
 #define endl '\n'
 #define len(v) (ll)v.size()
 #define all(v) v.begin(), v.end()
 const ll mod = 1e9 + 7;
-const int N = 1e5 + 10;
 
 void solve() {
-    
+  	
 }
 
 int main() {
     ios::sync_with_stdio(false);
     ll T = 1;
-     cin >> T;
+    cin >> T;
     while (T--) {
         solve();
     }
