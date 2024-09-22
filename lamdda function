@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define vl vector<long long>
+#define pb push_back
+#define fs(i, a, b) for (ll i = a; i < b; i++)
+#define print(v) for (auto x : v) cout << x << " "
+#define endl '\n'
+const ll mod = 1e9 + 7;
+#define all(t) t.begin(),t.end()
+const string s="narek";
+
+int main() {
+    ll T = 1;
+    cin >> T;
+    while (T--) {
+        ll n,m;cin>>n>>m;
+        vector<string>a(n);
+        for(auto &i:a)cin>>i;
+        vector<vector<ll>>dp(n,vector<ll>(5,-1));
+        auto f=[&](ll idx,ll letter,auto &&self)->int{
+          if(idx==n) return -2*letter;
+          if(dp[idx][letter]!=-1)return dp[idx][letter];
+          ll nottake=self(idx+1,letter,self);
+          ll take=0,index=letter;
+          for(auto &i:a[idx]){
+            if(i==s[index]) index=(index+1)%5,take++;
+            else if(i=='n'||i=='a'||i=='r'||i=='e'||i=='k')take--;
+          }
+          take+=self(idx+1,index,self);
+          return dp[idx][letter]=max(take,nottake);
+        };
+        cout<<f(0,0,f)<<endl;
+    }
+}
+
+
+
+
