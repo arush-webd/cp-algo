@@ -7,5 +7,6 @@ ll pw(ll x,ll y){
 
 ll inverse(ll x){
     return pw(x,mod-2);
+// a%b=a*inverse(b)
 }
-//a/b=a*inverse(b)
+
