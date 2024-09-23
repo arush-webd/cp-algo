@@ -1,8 +1,5 @@
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
-using namespace __gnu_pbds;
 #define ll long long
 #define vl vector<long long>
 #define vvl vector<vector<long long>>
@@ -18,18 +15,27 @@ using namespace __gnu_pbds;
 #define len(v) (ll)v.size()
 #define all(v) v.begin(), v.end()
 const ll mod = 1e9 + 7;
-typedef tree<ll, null_type, less_equal<ll>, rb_tree_tag, tree_order_statistics_node_update> ordered_multiset;
-
-void solve() {
-    
-}
+const ll inf=INT_MAX;
 
 int main() {
-    ios::sync_with_stdio(false);
-    ll T = 1;
-    // cin >> T;
+    ll T;
+    cin >> T;
     while (T--) {
-        solve();
+        
     }
-    return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
