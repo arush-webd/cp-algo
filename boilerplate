@@ -16,15 +16,17 @@ using namespace std;
 #define all(v) v.begin(), v.end()
 const ll mod = 1e9 + 7;
 const ll inf=LLONG_MAX;
+#define X first
+#define Y second
+using ii = pair<ll,ll>;
 
 int main() {
     ll T=1;
-    //cin >> T;
+    cin >> T;
     while (T--) {
-        
-    }
+     
+  }   
 }
-
 
 
 
