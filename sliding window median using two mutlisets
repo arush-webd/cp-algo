@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define vl vector<long long>
+#define vvl vector<vector<long long>>
+#define vs vector<string>
+#define vb vector<bool>
+#define vp vector<pair<ll, ll>>
+#define vc vector<char>
+#define mll map<long long, long long>
+#define pb push_back
+#define fs(i, a, b) for (ll i = a; i < b; i++)
+#define print(v) for (auto x : v) cout << x << " "
+#define endl '\n'
+#define len(v) (ll)v.size()
+#define all(v) v.begin(), v.end()
+const ll mod = 1e9 + 7;
+const ll inf=LLONG_MAX;
+#define X first
+#define Y second
+using ii = pair<ll,ll>;
+ll n,k;
+const ll N=2e5+10;
+vl a(N);
+multiset<ll>up;
+multiset<ll>low;
+ 
+void ins(ll val){
+  ll a=*low.rbegin();
+  if(a<val){
+    up.insert(val);
+    if(up.size()>k/2){
+      low.insert(*up.begin());
+      up.erase(up.find(*up.begin()));
+    }
+  }
+  else {
+    low.insert(val);
+    if(low.size()>(k+1)/2){
+      up.insert(*low.rbegin());
+      low.erase(low.find(*low.rbegin()));
+    }
+  }
+}
+ 
+void er(ll val){
+  if(up.find(val)!=up.end()) up.erase(up.find(val));
+  else low.erase(low.find(val));
+  if(low.empty()){
+    low.insert(*up.begin());
+    up.erase(up.find(*up.begin()));
+  }
+}
+ 
+void solve() {
+  cin>>n>>k;
+  a.resize(n);
+  fs(i,0,n) cin>>a[i];
+  low.insert(a[0]);
+  if(k==1){
+    print(a); return;
+  }
+  fs(i,1,k) ins(a[i]);
+  cout<<*low.rbegin()<<" ";
+  for(ll i=k;i<n;i++){
+    er(a[i-k]);
+    ins(a[i]);
+    cout<<*low.rbegin()<<" ";
+  }
+ 
+}
+ 
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    ll T=1;
+    //cin>>T;
+    fs(i,0,T) {
+        solve();
+    }
+}
