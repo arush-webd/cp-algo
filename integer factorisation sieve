@@ -1,0 +1,27 @@
+vl primes;
+bool vis[31624+1];
+
+void seive(ll n){
+  for(ll i=2;i*i<=n;i++){
+    if(!vis[i]){
+      for(ll j=i*i;j<=n;j+=i) vis[j]=1;
+    }
+  }
+  fs(i,2,n+1){
+    if(!vis[i])primes.push_back(i);
+  }
+}
+
+vl factors(ll n) {
+    vl factorization;
+    for (ll d : primes) {
+        if (d * d > n)
+            break;
+        while (n % d == 0) {
+            factorization.pb(d);
+            n /= d;
+        }
+    }
+    if (n > 1) factorization.pb(n);
+    return factorization;
+}
