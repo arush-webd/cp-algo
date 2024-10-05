@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define vl vector<long long>
+#define vvl vector<vector<long long>>
+#define vs vector<string>
+#define vb vector<bool>
+#define vp vector<pair<ll, ll>>
+#define vc vector<char>
+#define mll map<long long, long long>
+#define pb push_back
+#define fs(i, a, b) for (ll i = a; i < b; i++)
+#define print(v) for (auto x : v) cout << x << " "
+#define endl '\n'
+#define len(v) (ll)v.size()
+#define all(v) v.begin(), v.end()
+const ll mod = 1e9 + 7;
+const ll inf=LLONG_MAX;
+#define X first
+#define Y second
+using ii = pair<ll,ll>;
+const ll N=20;
+ll validnumbers[N][10][2][2]; //dp[max no of digits][lead digit][bool leaad_zero][tight]
+// dp[n][x]=number of valid integers with n digits whose leading digit is ≠x. 
+
+void reset(){
+  memset(validnumbers,-1,sizeof(validnumbers));
+}
+
+ll dfs(string &numstr,ll n, ll x, bool leading_zero, bool tight){
+  if(n==0) return 1;
+  
+  //subproblem already solved
+  if(x!=-1&&validnumbers[n][x][leading_zero][tight]!=-1) return validnumbers[n][x][leading_zero][tight];
+  ll bound=tight?(numstr[numstr.length()-n]-'0'):9;
+  ll ans=0;
+  for(ll digit=0;digit<=bound;digit++){
+    if(digit==x&&leading_zero==0)continue;  //we have number of consectuyive dgiits whic is not leading_zero case
+    ans+=dfs(numstr,n-1,digit,(leading_zero&&digit==0),(tight&&(digit==bound)));  
+    //ans  increased by possoble n-1 digit integers that can follow our current digit
+  }
+  return validnumbers[n][x][leading_zero][tight]=ans;
+}
+
+void solve() {
+  ll a,b;cin>>a>>b;
+  string a_str=to_string(a-1);
+  string b_str=to_string(b);
+  reset();
+  ll ans1=dfs(a_str,a_str.length(),-1,1,1);
+  reset();
+  ll ans2=dfs(b_str,b_str.length(),-1,1,1);
+  cout<<ans2-ans1;
+}
+
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    ll T=1;
+    //cin>>T;
+    fs(i,0,T) {
+        solve();
+    }
+}
+
+//Your task is to count the number of integers between a and b where no two adjacent digits are the same. a,b<=1e18
+
+
+
+
+
+
+
+
+
+
+
+
