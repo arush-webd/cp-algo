@@ -1,4 +1,5 @@
 const ll INF=1000000000;
+vector<vp>adj
 void dijksta(ll s,vl &d,vl &p){
   ll n=len(adj);
   d.assign(n,INF);
@@ -31,4 +32,27 @@ vl restore_path(ll s,ll t,vl &p){
   path.pb(s);
   reverse(all(path));
   return path;
+}
+
+
+void dijkstra(ll s,vl&d,vl&p){
+  ll n=len(adj);
+  d.assign(n,INF);
+  p.assign(n,-1);
+  d[s]=0;
+  set<ii>q;
+  q.insert({0,s});
+  while(!q.empty()){
+    ll v=q.begin()->Y;
+    q.erase(q.begin());
+    for(auto edge:adj[v]){
+      ll to=edge.X;
+      ll length=edge.Y;
+      if(d[v]+length<d[to]){
+        d[to]=d[v]+length;
+        p[to]=v;
+        q.insert({d[to],to});
+      }
+    }
+  }
 }
