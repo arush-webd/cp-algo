@@ -16,10 +16,10 @@ using namespace std;
 #define all(v) v.begin(), v.end()
 #define rall(v) v.rbegin(),v.rend()
 const ll mod = 1e9 + 7;
-const ll inf=INT_MAX;
+const ll inf=LLONG_MAX;
 #define X first
 #define Y second
-using ii = pair<ll,ll>;
+using pll = pair<ll,ll>;
 
 void solve() {
   
@@ -35,7 +35,6 @@ int main() {
         solve();
     }
 }
-
 
 
 
