@@ -23,51 +23,50 @@ using ii = pair<ll,ll>;
 
 void solve() {
   ll n;cin>>n;
-      deque<char>ans;
-      ll type=0;
-      auto query = [&](char ch) {
-      cout << "? ";
-      if (type == 0) cout << ch;
-      for (char c : ans) {
-        cout << c;
-      }
-      if (type == 1) cout << ch;
-      cout << endl;
-      int res;
+      auto query = [&](ll l,ll r) {
+      cout << "? "<<l<<" "<<r<<endl;
+      cout.flush();
+      ll res;
       cin >> res;
       return res;
     };
-      auto answer=[&](){
-        cout<<"! ";
-        for(char c:ans)cout<<c;
-        cout<<endl;
-      };
-      
-      fs(i,0,n){
-        bool found=0;
-        for(char c='0';c<='1';c++){
-          if(query(c)==1){
-            if(type==0)ans.push_front(c);
-            else{
-              ans.push_back(c);
-            }
-            found=1;
-              break;
-          }
+    string ans;
+    vl a(n+1);
+      fs(i,2,n+1){
+        ll x=query(1,i);
+        a[i]=x;
+      }
+      if(a[n]==0){
+        cout<<"! IMPOSSIBLE"<<endl;
+        cout.flush();
+        return;
+      }
+      ll first;
+      fs(i,2,n+1){
+        if(a[i]!=0){
+          first=i;
+          break;
         }
-        if (!found) {
-        assert(++type <= 1);
-        i--;
       }
+     if(first-a[first]-1>=0) ans+=string(first-a[first]-1,'1');
+      ans+=string(a[first],'0');
+      ans+='1';
+      for(ll i=first+1;i<n+1;i++){
+        if(a[i]==a[i-1]){
+          ans+='0';
+        }
+        else {
+          ans+='1';
+        }
       }
-      
-      answer();
+      cout<<"! "<<ans<<endl;
+      cout.flush();
 }
 
 
 int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    // ios_base::sync_with_stdio(0);
+    // cin.tie(0); cout.tie(0);
     ll T=1;
     cin>>T;
     fs(i,0,T) {
