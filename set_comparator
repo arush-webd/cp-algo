@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define vl vector<long long>
+#define vvl vector<vector<long long>>
+#define vs vector<string>
+#define vb vector<bool>
+#define vp vector<pair<ll, ll>>
+#define vc vector<char>
+#define mll map<long long, long long>
+#define pb push_back
+#define fs(i, a, b) for (ll i = a; i < b; i++)
+#define p(v) for (auto x : v) cout << x << " "
+#define endl '\n'
+#define len(v) (ll)v.size()
+#define all(v) v.begin(), v.end()
+#define rall(v) v.rbegin(), v.rend()
+const ll mod = 1e9 + 7;
+const ll inf = LLONG_MAX;
+#define X first
+#define Y second
+using ii = pair<ll, ll>;
+
+bool comp(const ii &a,const ii &b) {
+    ll l1 = a.X;
+    ll r1 = a.Y;
+    ll l2 = b.X;
+    ll r2 = b.Y;
+    if (r1-l1==r2-l2) return l1<l2;
+    return r1-l1>r2-l2;
+}
+
+void solve() {
+    ll n;
+    cin>>n;
+    vl a(n);
+    set<ii, decltype(comp)*> st(comp);
+    st.insert({1,n});
+    fs(i,1,n+1){
+      auto pr=*st.begin();
+      st.erase(*st.begin());
+      ll mid=(pr.X+pr.Y)/2;
+      a[mid-1]=i;
+      if(mid-1>=pr.X) st.insert({pr.X,mid-1});
+      if(pr.Y>=mid+1) st.insert({mid+1,pr.Y});
+    }
+    p(a);
+    cout<<endl;
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    ll T = 1;
+    cin >> T;
+    fs(i, 0, T) {
+        solve();
+    }
+}
