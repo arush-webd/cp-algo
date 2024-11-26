@@ -1,0 +1,7 @@
+auto cmp = [](pair<ll,pair<ll,ll>>& a, pair<ll,pair<ll,ll>>& b) {
+        ll lena = a.second.second - a.second.first + 1;
+        ll lenb = b.second.second - b.second.first + 1;
+        if (lena == lenb) return a.second.first > b.second.first;
+        return lena < lenb;
+    };
+    priority_queue<pair<ll,pair<ll,ll>>, vector<pair<ll,pair<ll,ll>>>, decltype(cmp)> pq(cmp);
