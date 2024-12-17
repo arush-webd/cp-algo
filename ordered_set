@@ -1,0 +1,9 @@
+using namespace __gnu_pbds;
+template<class T> using ordered_multiset = tree<T, null_type, less_equal<T>, 
+rb_tree_tag, tree_order_statistics_node_update>;
+
+//for no multiset use less instead of less_equal
+//for descedning order use greater
+// ss.order_of_key(x): number of elements less than x || for less than equal to use (x+1)    logn
+// ss.find_by_order(x): returns iterator pointing to x and if it's not present points to ss.end()    logn
+// can efficiently remove insert find number of elements less and element present at particular index
