@@ -9,3 +9,15 @@ void sieve(){
         }
     }
 }
+
+vl divi(ll n) {
+    vl divisors;
+    for (ll i = 1; i <= sqrt(n); i++) {
+        if (n % i == 0) {
+            divisors.pb(i); 
+            if (i != n / i) divisors.pb(n / i);
+        }
+    }
+    sort(all(divisors));
+    return divisors;
+}
