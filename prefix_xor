@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define vl vector<long long>
+#define vvl vector<vector<long long>>
+#define vs vector<string>
+#define vb vector<bool>
+#define vp vector<pair<ll, ll>>
+#define vc vector<char>
+#define mll map<long long, long long>
+#define pb push_back
+#define fs(i, a, b) for (ll i = a; i < b; i++)
+#define print(v) for (auto x : v) cout << x << " "
+#define endl '\n'
+#define len(v) (ll)v.size()
+#define all(v) v.begin(), v.end()
+#define rall(v) v.rbegin(),v.rend()
+const ll mod = 1e9 + 7;
+const ll inf=LLONG_MAX;
+#define X first
+#define Y second
+using ii = pair<ll,ll>;
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+ll rnd(ll l, ll r) {
+    uniform_int_distribution<ll> uid(l, r - 1);
+    return uid(rng);
+}
+
+void solve() {
+  ll n,q;cin>>n>>q;
+  map<ll,ii>mp;
+  vp pref(n+1);
+  fs(i,1,n+1){
+    ll x;cin>>x;
+    if(!mp.count(x)){
+      mp[x]={rnd(0ll,1ll<<62),rnd(0ll,1ll<<62)};
+    }
+    pref[i].X=(pref[i-1].X)^(mp[x].X);  //map elements 
+    pref[i].Y=(pref[i-1].Y)^(mp[x].Y);  // probalibity of collision reduces from 1/2->1/(2^64)
+  }
+  while(q--){
+    ll l,r;cin>>l>>r;
+    if(pref[l-1]==pref[r]){
+      cout<<"YES"<<endl;
+    }
+    else {
+      cout<<"NO"<<endl;
+    }
+  }
+}
+
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    ll T=1;
+    cin>>T;
+    fs(i,0,T) {
+        solve();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
