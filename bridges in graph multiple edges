@@ -1,0 +1,25 @@
+const ll N=1e5+10;
+vl adj[N];
+vl vis;
+vl toe,low;
+vl substree;
+set<ii>bridges;
+ll timer;
+
+void dfs(ll u,ll p){
+  vis[u]=1;
+  toe[u]=low[u]=timer++;
+  bool parent_skipped=0;
+  for(auto v:adj[u]){
+    if(v==p&&!parent_skipped){
+      parent_skipped=1;
+      continue;
+    }
+    if(vis[v]) low[u]=min(low[u],low[v]);
+    else {
+      dfs(v,u);
+      low[u]=min(low[u],low[v]);
+      if(low[v]>toe[u])  bridges.insert({u,v});
+    }
+  }
+}
