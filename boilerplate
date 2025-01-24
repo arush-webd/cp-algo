@@ -11,6 +11,7 @@ using namespace std;
 #define pb push_back
 #define fs(i, a, b) for (ll i = a; i < b; i++)
 #define print(v) for (auto x : v) cout << x << " "
+#define printt(v) for (auto [x,y] : v) cout << x << " "<<y<<endl
 #define endl '\n'
 #define len(v) (ll)v.size()
 #define all(v) v.begin(), v.end()
@@ -29,11 +30,8 @@ void solve() {
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
-    ll T=1;
-    cin>>T;
-    fs(i,0,T) {
-        solve();
-    }
+    ll T=1; cin>>T;
+    fs(i,0,T) solve();
 }
 
 
