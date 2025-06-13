@@ -2,10 +2,18 @@
 using namespace std;
 #define int long long
 
-signed main(){
+signed main() {
 	int t;cin>>t;
 	while(t--){
 	   
 	}
 
+}
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    
+    return 0;
 }
