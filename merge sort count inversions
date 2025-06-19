@@ -1,0 +1,34 @@
+ll func(vl &a,ll l,ll m,ll r){
+  ll n1=m-l+1,n2=r-m;
+  vl left(n1),right(n2);
+  fs(j,0,n1) left[j]=a[l+j];
+  fs(j,0,n2) right[j]=a[m+1+j];
+  ll ans=0;
+  ll i=0,j=0,k=l;
+  while(i<n1&&j<n2){
+    if(left[i]<=right[j]) a[k++]=left[i++];
+    else {
+      a[k++]=right[j++];
+      ans+=(n1-i);
+    }
+  }
+  while(i<n1) a[k++]=left[i++];
+  while(j<n2) a[k++]=right[j++];
+  return ans;
+}
+ 
+ll inv(vl &a,ll l,ll r){
+  ll res=0;
+  if(l<r){
+    ll m=(l+r)/2;
+    res+=inv(a,l,m);
+    res+=inv(a,m+1,r);
+    res+=func(a,l,m,r);
+  }
+  return res;
+}
+ 
+ll cnt(vl &a){
+  ll n=len(a);
+  return inv(a,0,n-1);
+}
