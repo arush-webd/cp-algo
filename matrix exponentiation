@@ -1,0 +1,20 @@
+vvl mul(const vvl &a, const vvl &b) {
+    ll n = len(a);
+    vvl res(n, vl(n));
+    fs(i,0,n)
+        fs(j,0,n)
+            fs(k,0,n) res[i][j] = (res[i][j] + a[i][k]*b[k][j]%mod) % mod;
+    return res;
+}
+
+vvl power(vvl a, ll p) {
+    ll n = len(a);
+    vvl res(n, vl(n));
+    fs(i,0,n) res[i][i] = 1;
+    while(p){
+        if(p&1) res = mul(res,a);
+        a = mul(a,a);
+        p >>= 1;
+    }
+    return res;
+}
