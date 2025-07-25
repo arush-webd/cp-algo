@@ -1,0 +1,47 @@
+class Solution {
+public:
+
+    void merge(vector<int>&ans,vector<pair<int,int>>&vec,int l,int m,int r){
+        vector<pair<int,int>>tmp(r-l+1);
+        int i=l,j=m+1,k=0;
+        while(i<=m&&j<=r){
+            if(vec[i].first<=vec[j].first){
+                tmp[k]=vec[j];
+                j++;k++;
+            }
+            else {
+                ans[vec[i].second]+=r-j+1;
+                tmp[k]=vec[i];
+                i++;k++;
+            }
+        }
+        while(i<=m){
+            tmp[k]=vec[i];
+            i++;k++;
+        }
+        while(j<=r){
+            tmp[k]=vec[j];
+            k++;j++;
+        }
+        for(int i=l;i<=r;i++) vec[i]=tmp[i-l];
+    }
+
+    void mergeSort(vector<int>&ans,vector<pair<int,int>>&vec,int l,int r){
+        if(l>=r) return;
+        int mid=l+(r-l)/2;
+        mergeSort(ans,vec,l,mid);
+        mergeSort(ans,vec,mid+1,r);
+        merge(ans,vec,l,mid,r);
+    }
+
+    vector<int> countSmaller(vector<int>& nums) {
+        int n=nums.size();
+        vector<pair<int,int>>vec(n);
+        for(int i=0;i<n;i++) vec[i]={nums[i],i};
+        vector<int>ans(n,0);
+        mergeSort(ans,vec,0,n-1);
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/count-of-smaller-numbers-after-self/
