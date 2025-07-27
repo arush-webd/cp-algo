@@ -1,0 +1,97 @@
+const int MOD =  998244353;
+const ii BASE = {1e9 + 7, 1e9 + 9};
+ 
+ii operator+(const ii &a, const ii &b)
+{
+    return {(a.first + b.first) % MOD, (a.second + b.second) % MOD};
+}
+ 
+ii operator+(const ii &a, const ll &b)
+{
+    return {(a.first + b) % MOD, (a.second + b) % MOD};
+}
+ 
+ii operator-(const ii &a, const ii &b)
+{
+    return {(MOD + a.first - b.first) % MOD, (MOD + a.second - b.second) % MOD};
+}
+ 
+ii operator*(const ii &a, const ii &b)
+{
+    return {(a.first * b.first) % MOD, (a.second * b.second) % MOD};
+}
+ 
+ii operator*(const ii &a, const ll &b)
+{
+    return {(a.first * b) % MOD, (a.second * b) % MOD};
+}
+ 
+inline ll modpow(ll x, int p)
+{
+    if (!p)
+        return 1;
+    return (modpow(x * x % MOD, p >> 1) * (p % 2 ? x : 1)) % MOD;
+}
+ 
+inline ll modinv(ll x)
+{
+    return modpow(x, MOD - 2);
+}
+ 
+struct hsh_bit
+{
+    int N;
+    string S;
+    vector<ii> fen, pp, ipp;
+ 
+    hsh_bit(string S_)
+    {
+        S = S_;
+        N = S.size();
+        fen.resize(N + 1);
+        pp.resize(N);
+        ipp.resize(N);
+        pp[0] = ipp[0] = {1, 1};
+        const ii ibase = {modinv(BASE.first), modinv(BASE.second)};
+        for (int i = 1; i < N; i++)
+        {
+            pp[i] = pp[i - 1] * BASE;
+            ipp[i] = ipp[i - 1] * ibase;
+        }
+        for (int i = 0; i < N; i++)
+        {
+            upd(i, S[i]);
+        }
+    }
+ 
+    void upd(int i, int x)
+    {
+        ii p = pp[i] * x;
+        for (++i; i <= N; i += i & -i)
+        {
+            fen[i] = fen[i] + p;
+        }
+    }
+ 
+    ii qry(int i)
+    {
+        ii ret = {0, 0};
+        for (; i; i -= i & -i)
+        {
+            ret = ret + fen[i];
+        }
+        return ret;
+    }
+ 
+    void set(int i, char c)
+    {
+        int d = (MOD + c - S[i]) % MOD;
+        S[i] = c;
+        upd(i, d);
+    }
+ 
+    ii get(int s, int e)
+    {
+        return (qry(e) - qry(s)) * ipp[s];
+    }
+};
