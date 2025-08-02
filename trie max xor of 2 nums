@@ -1,0 +1,95 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define vl vector<long long>
+#define vvl vector<vector<long long>>
+#define vs vector<string>
+#define vb vector<bool>
+#define vp vector<pair<ll, ll>>
+#define vc vector<char>
+#define mll map<long long, long long>
+#define pb push_back
+#define fs(i, a, b) for (ll i = a; i < b; i++)
+#define print(v) for (auto x : v) cout << x << " "
+#define printt(v) for (auto [x,y] : v) cout << x << " "<<y<<endl
+#define endl '\n'
+#define len(v) (ll)v.size()
+#define all(v) v.begin(), v.end()
+#define rall(v) v.rbegin(),v.rend()
+const ll mod = 1e9+7;
+const ll inf=1e18;
+#define X first
+#define Y second
+using ii = pair<ll,ll>;
+
+struct Node{
+    Node *links[2];
+    bool isSet(int bit){return (links[bit]!=NULL);}
+    Node* get(int bit) {return links[bit];}
+    void put(int bit,Node* node) {links[bit]=node;}
+    
+};
+
+class Tries{
+    private:
+    Node *root;
+    public:
+    Tries(){root=new Node();}
+    void insert(ll num){
+        Node *node=root;
+        for(ll i=31;i>=0;i--){
+            ll bit=(num>>i)&1;
+            if(!node->isSet(bit)) node->put(bit,new Node());
+            node=node->get(bit);
+        }
+    }
+    ll getMax(ll num){
+        Node* node=root;
+        ll maxi=0;
+        for(ll i=31;i>=0;i--){
+            ll bit=(num>>i)&1;
+            if(node->isSet(1-bit)){
+                maxi|=(1<<i);
+                node=node->get(1-bit);
+            }
+            else node=node->get(bit);
+        }
+        return maxi;
+    }
+};
+
+ll findMaximumXOR(vl& nums) {
+    Tries* trie=new Tries();
+    ll n=len(nums),res=0;
+    fs(i,0,n){
+        trie->insert(nums[i]);
+        res=max(res,trie->getMax(nums[i]));
+    }
+    return res;
+}
+
+void solve() {
+  ll n,k;cin>>n>>k;
+  vl a(n);
+  for(auto &x:a)cin>>x;
+  cout<<findMaximumXOR(a);
+}
+
+int main() {
+  ios_base::sync_with_stdio(0);
+  cin.tie(0); cout.tie(0);
+  ll T=1;
+  cin>>T;
+  fs(i,0,T) solve();
+}
+
+
+
+
+
+
+
+
+
+
+
