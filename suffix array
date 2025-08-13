@@ -1,0 +1,46 @@
+vl suffix_array(string &s){
+  s+='$';
+  ll n=len(s);
+  vl p(n),c(n);
+  vector<pair<char,ll>>a(n);
+  fs(i,0,n) a[i]={s[i],i};
+  sort(all(a));
+  fs(i,0,n) p[i]=a[i].Y;
+  c[p[0]]=0;
+  fs(i,1,n){
+    if(a[i-1].X==a[i].X) c[p[i]]=c[p[i-1]];
+    else c[p[i]]=1+c[p[i-1]];
+  }
+  ll k=0;
+  while((1ll<<k)<n){
+    fs(i,0,n){
+      p[i]=(p[i]-(1ll<<k)+n)%n;
+    }
+  ll m=len(p);
+   vl cnt(m);
+   for(auto x:c) cnt[x]++;
+   vl p_new(m),pos(m);
+   pos[0]=0;
+   fs(i,1,n) pos[i]=pos[i-1]+cnt[i-1];
+   for(auto x:p){
+     ll i=c[x];
+     p_new[pos[i]]=x;
+     pos[i]++;
+  }
+  p=p_new;
+    vl c_new(n);
+    c_new[p[0]]=0;
+    c[p[0]]=0;
+    fs(i,1,n){
+      ii prev={c[p[i-1]],c[(p[i-1]+(1ll<<k))%n]};
+      ii next={c[p[i]],c[(p[i]+(1ll<<k))%n]};
+      if(next==prev){
+        c_new[p[i]]=c_new[p[i-1]];
+      }
+      else c_new[p[i]]=1+c_new[p[i-1]];
+    }
+    c=c_new;
+    k++;
+  }
+  return p;
+}
