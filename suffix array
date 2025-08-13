@@ -1,4 +1,4 @@
-vl suffix_array(string &s){
+pair<vl,vl> suffix_array(string &s){
   s+='$';
   ll n=len(s);
   vl p(n),c(n);
@@ -42,5 +42,31 @@ vl suffix_array(string &s){
     c=c_new;
     k++;
   }
-  return p;
+  vl rank(n);
+  fs(i,0,n) rank[p[i]]=i;
+  vl lcp(n);
+  k=0;
+  fs(i,0,n-1){
+    if(rank[i]==0){
+      k=0;continue;
+    }
+    ll j=p[rank[i]-1];
+    //lcp[i]=lcp(s[i...],s[j...])
+    while(i+k<n&&j+k<n&&s[i+k]==s[j+k]) k++;
+    lcp[rank[i]]=k;
+    k=max(0ll,k-1);
+  }
+  return {p,lcp};
 }
+
+
+
+
+
+
+
+
+
+
+
+
