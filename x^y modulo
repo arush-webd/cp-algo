@@ -1,12 +1,11 @@
 ll pw(ll x,ll y){
-    if (y == 0) return 1;
-    ll p = pw(x, y / 2);
-    p = (p * p)%mod;
-    return (y % 2 == 0) ? p : (x * p)%mod;
+    if (y==0)return 1;
+    ll p=pw(x,y/2);
+    p=(p*p)%mod;
+    return (y%2==0)?p:(x*p)%mod;
 }
 
 ll inverse(ll x){
     return pw(x,mod-2);
-// a/b=a*inverse(b)
 }
 
