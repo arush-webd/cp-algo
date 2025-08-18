@@ -5,7 +5,5 @@ ll pw(ll x,ll y){
     return (y%2==0)?p:(x*p)%mod;
 }
 
-ll inverse(ll x){
-    return pw(x,mod-2);
-}
+ll inverse(ll x){return pw(x,mod-2);}
 
