@@ -4,6 +4,7 @@ using namespace std;
 #define int long long
 #define sz(a) (int)((a).size())
 #define all(x) (x).begin(), (x).end()
+#define fs(i, a, b) for (ll i = a; i < b; i++)
 
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
@@ -11,6 +12,7 @@ using pii = pair<int, int>;
 using ll = long long;
 using ld = long double;
 using pll = pair<ll, ll>;
+using vl = vector<ll>;
 
 #ifdef yb
 #include "debugtemplate.cpp"
@@ -19,7 +21,7 @@ using pll = pair<ll, ll>;
 #endif
 
 const ld eps = 1e-9;
-const int mod = 1e9 + 7;
+const int mod = 998244353;
 const ll INF = 4e16;
 
 void Solve(int _) {
