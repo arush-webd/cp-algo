@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
+#define ld long double
 #define vl vector<long long>
 #define vvl vector<vector<long long>>
 #define vs vector<string>
@@ -33,3 +34,20 @@ int main() {
   cin>>T;
   fs(i,0,T) solve();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
