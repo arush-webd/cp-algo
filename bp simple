@@ -2,9 +2,10 @@
 
 using namespace std;
 #define int long long
-#define sz(a) (int)((a).size())
+#define len(a) (int)((a).size())
 #define all(x) (x).begin(), (x).end()
 #define fs(i, a, b) for (ll i = a; i < b; i++)
+#define pb push_back
 
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
@@ -25,7 +26,7 @@ const int mod = 998244353;
 const ll INF = 4e16;
 
 void Solve(int _) {
-    
+  
 }
 
 int32_t main() {
