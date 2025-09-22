@@ -1,53 +1,18 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-#define int long long
-#define len(a) (int)((a).size())
-#define all(x) (x).begin(), (x).end()
-#define fs(i, a, b) for (ll i = a; i < b; i++)
-#define pb push_back
+#define ll long long
 
-mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
-
-using pii = pair<int, int>;
-using ll = long long;
-using ld = long double;
-using pll = pair<ll, ll>;
-using vl = vector<ll>;
-
-#ifdef yb
-#include "debugtemplate.cpp"
-#else
-#define debug(...) 
-#endif
-
-const ld eps = 1e-9;
-const int mod = 998244353;
-const ll INF = 4e16;
-
-void Solve(int _) {
-  
-}
-
-int32_t main() {
-    auto begin = std::chrono::high_resolution_clock::now();
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    #ifndef ONLINE_JUDGE
-     freopen("error.txt", "w", stderr);
-    #endif
-    int _ = 1;
-    cin >> _;
-    cout << fixed;
-    cout << setprecision(20);
+int main(){
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  ll t=1;
+  cin>>t;
+  while(t--){
     
-    for(int i = 1; i <= _; i++) 
-    {
-        // cout << "Case #" << i << ": ";
-        Solve(i);
-    }
-    auto end = std::chrono::high_resolution_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
-    cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n"; 
-    return 0;
+  }
 }
+
+
+
+
+
