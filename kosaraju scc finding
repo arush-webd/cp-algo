@@ -1,73 +1,62 @@
 #include <bits/stdc++.h>
 
-#define MAX_N 20001
-#define ll long long int
-using namespace std;
-int n, m;
+const int N = 1e5 + 1;
 
-struct Node {
-  vector < int > adj;
-  vector < int > rev_adj;
-};
+// adj_t is the transpose of adj
+std::vector<int> adj[N], adj_t[N];
+std::vector<int> order;
+std::vector<int> vis(N), id(N);
 
-Node g[MAX_N];
-
-stack < int > S;
-bool visited[MAX_N];
-
-int component[MAX_N];
-vector < int > components[MAX_N];
-int numComponents;
-
-void dfs_1(int x) {
-  visited[x] = true;
-  for (int i = 0; i < g[x].adj.size(); i++) {
-    if (!visited[g[x].adj[i]]) dfs_1(g[x].adj[i]);
-  }
-  S.push(x);
+// calculates the order in which nodes are processed
+void dfs1(int v) {
+	vis[v] = true;
+	for (int u : adj[v]) {
+		if (!vis[u]) { dfs1(u); }
+	}
+	order.push_back(v);
 }
 
-void dfs_2(int x) {
-  printf("%d ", x);
-  component[x] = numComponents;
-  components[numComponents].push_back(x);
-  visited[x] = true;
-  for (int i = 0; i < g[x].rev_adj.size(); i++) {
-    if (!visited[g[x].rev_adj[i]]) dfs_2(g[x].rev_adj[i]);
-  }
-}
+/*
+ * traverse one SCC at a time and
+ * assign component ID to all nodes in one SCC
+ */
+void dfs2(int x, int comp) {
+	vis[x] = true;
 
-void Kosaraju() {
-  for (int i = 0; i < n; i++)
-    if (!visited[i]) dfs_1(i);
-
-  for (int i = 0; i < n; i++)
-    visited[i] = false;
-
-  while (!S.empty()) {
-    int v = S.top();
-    S.pop();
-    if (!visited[v]) {
-      printf("Component %d: ", numComponents);
-      dfs_2(v);
-      numComponents++;
-      printf("\n");
-    }
-  }
+	for (int u : adj_t[x]) {
+		if (!vis[u]) { dfs2(u, comp); }
+	}
+	id[x] = comp;
 }
 
 int main() {
+	int n, m;
+	std::cin >> n >> m;
 
-  cin >> n >> m;
-  int a, b;
-  while (m--) {
-    cin >> a >> b;
-    g[a].adj.push_back(b);
-    g[b].rev_adj.push_back(a);
-  }
+	for (int i = 1; i <= m; i++) {
+		int u, v;
+		std::cin >> u >> v;
+		adj[u].push_back(v);
+		adj_t[v].push_back(u);
+	}
 
-  Kosaraju();
-  printf("Total number of components: %d\n", numComponents);
+	vis.assign(N, false);
 
-  return 0;
+	for (int i = 1; i <= n; i++) {
+		if (!vis[i]) { dfs1(i); }
+	}
+
+	vis.assign(N, false);
+	std::reverse(begin(order), end(order));
+	int comps = 0;
+	for (int v : order) {
+		if (!vis[v]) {
+			comps++;  // counter for SCC
+			dfs2(v, comps);
+		}
+	}
+
+	std::cout << comps << '\n';
+
+	for (int i = 1; i <= n; i++) { std::cout << id[i] << " \n"[i == n]; }
 }
