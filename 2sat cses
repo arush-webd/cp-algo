@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+ 
+const ll N=2*2e5+10;
+vector<ll>adj[N],radj[N];
+vector<ll>order;
+ll comp[N];
+bool used[N],val[N];
+ 
+ll neg(ll x){
+  return x^1;
+}
+ 
+void add(ll u,ll v){
+  adj[u].push_back(v);
+  radj[v].push_back(u);
+}
+ 
+void add_clause(ll x,bool v1,ll y,bool v2){
+  ll a=2*x+(!v1);
+  ll b=2*y+(!v2);
+  add(neg(a),b);
+  add(neg(b),a);
+}
+ 
+void dfs(ll u){
+  used[u]=1;
+  for(auto v:adj[u]){
+    if(!used[v]){
+      dfs(v);
+    }
+  }
+  order.push_back(u);
+}
+ 
+void dfs1(ll u,ll c){
+  comp[u]=c;
+  for(auto v:radj[u]){
+    if(comp[v]==-1){
+      dfs1(v,c);
+    }
+  }
+}
+ 
+int main(){
+  ll n,m;
+  cin>>n>>m;
+  for(ll i=0;i<n;i++){
+    char s1,s2;
+    ll n1,n2;
+    cin>>s1>>n1>>s2>>n2;
+    n1--;n2--;
+    bool v1=(s1=='+');
+    bool v2=(s2=='+');
+    add_clause(n1,v1,n2,v2);
+  }
+  for(ll i=0;i<2*m;i++){
+    if(!used[i]){
+      dfs(i);
+    }
+  }
+  memset(comp,-1,sizeof(comp));
+  ll c=0;
+  for(ll i=2*m-1;i>=0;i--){
+    ll v=order[i];
+    if(comp[v]==-1){
+      dfs1(v,c++);
+    }
+  }
+  for(ll i=0;i<m;i++){
+    if(comp[2*i]==comp[2*i+1]){
+      cout<<"IMPOSSIBLE"<<endl;
+      return 0;
+    }
+    val[i]=comp[2*i]>comp[2*i+1];
+  }
+  for(ll i=0;i<m;i++){
+    if(val[i]) cout<<"+ ";
+    else cout<<"- ";
+  }
+  cout<<endl;
+}
